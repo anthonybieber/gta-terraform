@@ -12,7 +12,7 @@ jobs:
       - name: Print Changed files
         run : |
           for changed_file in ${{ steps.files.outputs.all }}; do
-            if [[ $changed_file == *"stack"* ]]: then
+            if [[ $changed_file == *"stack"* ]]; then
               echo "$changed_file"
             fi
           done
