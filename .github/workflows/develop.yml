@@ -11,5 +11,5 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - name: Print Changed files
         run : |
-          echo "${{ steps.changed-files.outputs.all }}"
+          echo "${{ steps.files.outputs.all }}"
 
