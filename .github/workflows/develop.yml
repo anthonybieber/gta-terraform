@@ -13,7 +13,8 @@ jobs:
         run : |
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [[ $changed_file == *"stack"* ]]; then
-              echo "$changed_file"
+              stack_name = sed 's/.*stack/\(.*\)/.*/\1/' <<< "$s"
+              echo "stack_name"
             fi
           done
 
