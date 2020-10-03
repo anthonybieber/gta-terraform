@@ -1,0 +1,17 @@
+name: QA Workflow
+
+on: push
+
+jobs:
+  merge-into-develop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - uses: jitterbit/get-changed-files@v1
+        id: changed-files
+        with:
+          format: comma-delimited
+      - name: Print Changed files
+        run : |
+          echo "{{ steps.changed-files.all }}"
+
