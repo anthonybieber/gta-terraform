@@ -13,5 +13,5 @@ jobs:
           format: json
       - name: Print Changed files
         run : |
-          echo "{{ steps.changed-files.all }}"
+          echo "${{ steps.changed-files.all }}"
 
