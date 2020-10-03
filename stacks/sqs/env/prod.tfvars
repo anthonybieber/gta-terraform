@@ -1,7 +1,7 @@
 env = "prod"
 
 tags = {
-  Name = "kinn"
+  Name = "sqs"
   Environment = "prod"
   Product = "a3k"
 }
