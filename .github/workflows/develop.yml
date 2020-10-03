@@ -11,5 +11,9 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - name: Print Changed files
         run : |
-          echo "${{ steps.files.outputs.all }}"
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            if [[ $changed_file == *"stack"* ]]: then
+              echo "$changed_file"
+            fi
+          done
 
