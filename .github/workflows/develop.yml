@@ -10,7 +10,7 @@ jobs:
       - uses: jitterbit/get-changed-files@v1
         id: changed-files
         with:
-          format: comma-delimited
+          format: json
       - name: Print Changed files
         run : |
           echo "{{ steps.changed-files.all }}"
