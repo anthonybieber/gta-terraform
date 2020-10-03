@@ -13,8 +13,8 @@ jobs:
         run : |
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [[ $changed_file == *"stack"* ]]; then
-              stack_name=$(grep -oP 'stack/\K.*?(?=/)' <<< "$changed_file")
-              echo "$stack_name"
+              parsed=$(echo "$changed_file" | awk -F[//] '{print $2}' )
+              echo "$parsed"
             fi
           done
 
