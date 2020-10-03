@@ -7,11 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.1.0
-      - uses: jitterbit/get-changed-files@v1
-        id: changed-files
-        with:
-          format: json
+      - id: files
+        uses: jitterbit/get-changed-files@v1
       - name: Print Changed files
         run : |
-          echo "${{ steps.changed-files.all }}"
+          echo "${{ steps.changed-files.outputs.all }}"
 
