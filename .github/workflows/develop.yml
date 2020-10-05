@@ -3,8 +3,10 @@ name: QA Workflow
 on: push
 
 jobs:
-  merge-into-develop:
+  get-changed-stacks:
     runs-on: ubuntu-latest
+    outputs:
+      changed_stack_array: ${{ steps.updated_stacks.outputs.arr }}
     steps:
       - uses: actions/checkout@v2.1.0
       - id: files
@@ -21,13 +23,20 @@ jobs:
           done
           output_array=$(printf '%s\n' "${arr[@]}" | jq -R . | jq -s .)
           echo ::set-output name=arr::$output_array
-#      - name: Create list of modified stacks
-#        id: modified_stacks_list
-#        uses: lucaspinheirogit/list-from-string-array-action@v1.4.3
-#        with:
-#          stringArray: ${{ steps.updated_stacks.outputs.arr }}
-#      - name: Print modified files
-#        run: echo '${{ steps.modified_stacks_list.outputs.stringList }}'
       - name: echo outputs
         run: echo ${{ steps.updated_stacks.outputs.arr }}
+  plan-stack:
+    runs-on: ubuntu-latest
+    needs: get-changed-stacks
+    strategy:
+      matrix:
+        stack_name: ${{ needs.get-changed-stacks.outputs.changed_stack_array }}
+      max-parallel: 0
+    steps:
+      - name: Log stack
+        run: echo "${{ matrix.stack_name }}"
+
+
+
+
 
