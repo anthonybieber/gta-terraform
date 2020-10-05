@@ -14,7 +14,7 @@ ifndef STACK
 	@tput sgr0
 	@exit 1
 endif
-	cd stacks/$(STACK); pwd; $(TERRAFORM_BIN) init; $(TERRAFORM_BIN) workspace new prod; $(TERRAFORM_BIN) workspace new load; $(TERRAFORM_BIN) workspace new qa;
+	cd stacks/$(STACK); pwd; $(TERRAFORM_BIN) init; $(TERRAFORM_BIN) workspace select prod || $(TERRAFORM_BIN) workspace new prod; $(TERRAFORM_BIN) workspace select load || $(TERRAFORM_BIN) workspace new load; $(TERRAFORM_BIN) workspace select qa || $(TERRAFORM_BIN) workspace new qa;
 
 # Output a stack plan with terraform terraform based on Stack and Environment
 # Example usage: make plan STACK=<stack_name> ENV=<env_name>
