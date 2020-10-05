@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - develop
+  pull_request:
+    branches:
+      - develop
 
 jobs:
   # Get a list of changed stacks and create job output 'changed_stack_array'
@@ -32,8 +35,9 @@ jobs:
           echo ::set-output name=arr::$output_array
       - name: echo outputs
         run: echo ${{ steps.updated_stacks.outputs.arr }}
-  # Run terraform plan for every changed stack
+  # Run terraform plan on pull-request into develop for every changed stack
   plan-stack:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     needs: get-changed-stacks
     strategy:
@@ -54,6 +58,13 @@ jobs:
         run: make init_stack STACK=${{ matrix.stack_name }}
       - name: Plan stack
         run: make plan ENV=${{ matrix.env }} STACK=${{ matrix.stack_name }}
+    # Run terraform apply on push to develop for every changed stack
+    apply-stack:
+      if: github.event_name == 'push'
+      runs-on: ubuntu-latest
+      steps:
+        - name: Hello
+          run: echo "Hello"
 
 
 
