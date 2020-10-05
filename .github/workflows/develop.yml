@@ -54,6 +54,8 @@ jobs:
           aws-region: us-east-1
       - uses: actions/checkout@v2.1.0
       - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.28
       - name: Init stack
         run: make init_stack STACK=${{ matrix.stack_name }}
       - name: Plan stack
@@ -76,6 +78,8 @@ jobs:
           aws-region: us-east-1
       - uses: actions/checkout@v2.1.0
       - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.28
       - name: Init stack
         run: make init_stack STACK=${{ matrix.stack_name }}
       - name: Apply stack
