@@ -58,13 +58,13 @@ jobs:
         run: make init_stack STACK=${{ matrix.stack_name }}
       - name: Plan stack
         run: make plan ENV=${{ matrix.env }} STACK=${{ matrix.stack_name }}
-    # Run terraform apply on push to develop for every changed stack
-    apply-stack:
-      if: github.event_name == 'push'
-      runs-on: ubuntu-latest
-      steps:
-        - name: Hello
-          run: echo "Hello"
+  # Run terraform apply on push to develop for every changed stack
+  apply-stack:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello
+        run: echo "Hello"
 
 
 
