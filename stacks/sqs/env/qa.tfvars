@@ -1,7 +1,7 @@
 env = "qa"
 
 tags = {
-  Name = "sqseee"
+  Name = "sqs"
   Environment = "qa"
   Product = "a3k"
 }
