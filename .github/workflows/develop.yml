@@ -63,10 +63,10 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     needs: get-changed-stacks
-      strategy:
-        matrix:
-          stack_name: ${{ fromJson(needs.get-changed-stacks.outputs.changed_stack_array) }}
-        max-parallel: 0
+    strategy:
+      matrix:
+        stack_name: ${{ fromJson(needs.get-changed-stacks.outputs.changed_stack_array) }}
+      max-parallel: 0
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
