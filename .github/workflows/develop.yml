@@ -10,11 +10,21 @@ jobs:
       - id: files
         uses: jitterbit/get-changed-files@v1
       - name: Print Changed files
+        id: updated_stacks
         run : |
+          arr=()
           for changed_file in ${{ steps.files.outputs.all }}; do
             if [[ $changed_file == *"stack"* ]]; then
               parsed=$(echo "$changed_file" | awk -F[//] '{print $2}' )
-              echo "$parsed"
+              arr+=("$parsed")
             fi
           done
+          echo ::set-output name=arr::${arr[@]}
+      - name: Create list of modified stacks
+        id: modified_stacks_list
+        uses: lucaspinheirogit/list-from-string-array-action@v1.4.3
+        with:
+          stringArray: ${{ steps.updated_stacks.outputs.arr }}
+      - name: Print modified files
+        run: echo '${{ steps.modified_stacks_list.outputs.stringList }}'
 
