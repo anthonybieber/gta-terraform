@@ -79,7 +79,7 @@ jobs:
       - name: Init stack
         run: make init_stack STACK=${{ matrix.stack_name }}
       - name: Apply stack
-        run: make apply ENV=qa STACK=${{ matrix.stack_name }}
+        run: make apply-auto ENV=qa STACK=${{ matrix.stack_name }}
 
 
 
