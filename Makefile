@@ -14,9 +14,6 @@ ifndef STACK
 	@tput sgr0
 	@exit 1
 endif
-	@tput setaf 3
-	@echo "Initializing stack $(STACK)"
-	@tput sgr0
 	cd stacks/$(STACK); pwd; $(TERRAFORM_BIN) init; $(TERRAFORM_BIN) workspace new prod; $(TERRAFORM_BIN) workspace new load; $(TERRAFORM_BIN) workspace new qa;
 
 # Output a stack plan with terraform terraform based on Stack and Environment
