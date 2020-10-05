@@ -3,6 +3,8 @@ name: QA Workflow
 on: push
 
 jobs:
+  # Get a list of changed stacks and create job output 'changed_stack_array'
+  # Example output: '["ec2", "sqs"]
   get-changed-stacks:
     runs-on: ubuntu-latest
     outputs:
@@ -25,6 +27,7 @@ jobs:
           echo ::set-output name=arr::$output_array
       - name: echo outputs
         run: echo ${{ steps.updated_stacks.outputs.arr }}
+  # Run terraform plan for every changed stack
   plan-stack:
     runs-on: ubuntu-latest
     needs: get-changed-stacks
@@ -33,8 +36,10 @@ jobs:
         stack_name: ${{ fromJson(needs.get-changed-stacks.outputs.changed_stack_array) }}
       max-parallel: 0
     steps:
+      - uses: actions/checkout@v2.1.0
+      - uses: hashicorp/setup-terraform@v1
       - name: Log stack
-        run: echo "${{ matrix.stack_name }}"
+        run: make plan ENV=qa STACK=${{ matrix.stack_name }}
 
 
 
