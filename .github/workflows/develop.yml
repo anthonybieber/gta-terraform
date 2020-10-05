@@ -20,11 +20,13 @@ jobs:
             fi
           done
           echo ::set-output name=arr::${arr[@]}
-      - name: Create list of modified stacks
-        id: modified_stacks_list
-        uses: lucaspinheirogit/list-from-string-array-action@v1.4.3
-        with:
-          stringArray: ${{ steps.updated_stacks.outputs.arr }}
-      - name: Print modified files
-        run: echo '${{ steps.modified_stacks_list.outputs.stringList }}'
+#      - name: Create list of modified stacks
+#        id: modified_stacks_list
+#        uses: lucaspinheirogit/list-from-string-array-action@v1.4.3
+#        with:
+#          stringArray: ${{ steps.updated_stacks.outputs.arr }}
+#      - name: Print modified files
+#        run: echo '${{ steps.modified_stacks_list.outputs.stringList }}'
+      - name: echo outputs
+        run: echo ${{ steps.updated_stacks.outputs.arr }}
 
