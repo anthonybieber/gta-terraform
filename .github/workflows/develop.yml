@@ -19,7 +19,7 @@ jobs:
               arr+=("$parsed")
             fi
           done
-          echo ::set-output name=arr::${arr[@]}
+          echo ::set-output name=arr::${arr}
 #      - name: Create list of modified stacks
 #        id: modified_stacks_list
 #        uses: lucaspinheirogit/list-from-string-array-action@v1.4.3
