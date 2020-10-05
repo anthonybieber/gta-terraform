@@ -1,4 +1,4 @@
 resource "aws_sqs_queue" "terraform_queue" {
-  name = "anthony-sqs-${var.env}"
+  name = "anthony-sql-${var.env}"
   tags = var.tags
 }

@@ -1,9 +1,13 @@
 name: QA Workflow
 
-on: push
+on:
+  push:
+    branches:
+      - develop
 
 jobs:
   # Get a list of changed stacks and create job output 'changed_stack_array'
+  # Example of changed files in commit (input): Makefile, stacks/sqs/env/prod.yml, stacks/sqs/stack.tf, stacks/ec2/stack.tf
   # Example output: '["ec2", "sqs"]'
   get-changed-stacks:
     runs-on: ubuntu-latest
@@ -13,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2.1.0
       - id: files
         uses: jitterbit/get-changed-files@v1
-      - name: Print Changed files
+      - name: Parse changed stack files to stack names
         id: updated_stacks
         run : |
           arr=()
@@ -35,6 +39,7 @@ jobs:
     strategy:
       matrix:
         stack_name: ${{ fromJson(needs.get-changed-stacks.outputs.changed_stack_array) }}
+        env: [qa, prod]
       max-parallel: 0
     steps:
       - name: Configure AWS Credentials
@@ -48,7 +53,7 @@ jobs:
       - name: Init stack
         run: make init_stack STACK=${{ matrix.stack_name }}
       - name: Plan stack
-        run: make plan ENV=qa STACK=${{ matrix.stack_name }}
+        run: make plan ENV=${{ matrix.env }} STACK=${{ matrix.stack_name }}
 
 
 
